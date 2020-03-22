@@ -1,0 +1,50 @@
+{
+  "AttributeDefinitions": [
+    {
+      "AttributeName": "email",
+      "AttributeType": "S"
+    },
+    {
+      "AttributeName": "first_name",
+      "AttributeType": "S"
+    },
+    {
+      "AttributeName": "last_name",
+      "AttributeType": "S"
+    }
+  ],
+  "LocalSecondaryIndexes": [
+    {
+      "IndexName": "first_name_index",
+      "KeySchema": [
+        {
+          "AttributeName": "email",
+          "KeyType": "HASH"
+        },
+        {
+          "AttributeName": "first_name",
+          "KeyType": "RANGE"
+        }
+      ],
+      "Projection": {
+        "NonKeyAttributes": [ "first_name" ],
+        "ProjectionType": "INCLUDE"
+      }
+    }
+  ],
+  "TableName": "USER",
+  "KeySchema": [
+    {
+      "AttributeName": "email",
+      "KeyType": "HASH"
+    },
+    {
+      "AttributeName": "last_name",
+      "KeyType": "RANGE"
+    }
+  ],
+  "ProvisionedThroughput": {
+    "ReadCapacityUnits": 5,
+    "WriteCapacityUnits": 5
+  }
+}

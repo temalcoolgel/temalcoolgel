@@ -1,0 +1,13 @@
+{
+  "name": "setup",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "^2.643.0",
+    "dynamodb-geo": "^0.4.0"
+  },
+  "scripts": {
+    "start": "node index.js"
+  }
+}
