@@ -1,8 +1,8 @@
-import express from 'express';
-import db from './db/db';
 import bodyParser from 'body-parser';
+import express from 'express';
 import jwt from 'jsonwebtoken'; // used to create, sign, and verify tokens
-import bcrypt from 'bcryptjs';
+import db from './db/db';
+import { getNearestPlaces } from './model/places';
 import { getUserByEmail } from './model/user';
 import { verifyJWT } from './util/jwt_util';
 
@@ -49,11 +49,41 @@ app.get('/logout', function(req, res) {
 
 
 // get all todos
-app.get('/api/v1/todos',verifyJWT, (req, res) => {
+app.get('/api/v1/todos',verifyJWT, (_req, res) => {
     res.status(200).send({
         success: 'true',
         message: 'todos retrieved successfully',
         todos: db
+    })
+});
+
+
+app.get('/api/v1/places', async (req, res) => {
+
+    if(!req.query.rad) {
+        return res.status(400).send({
+            success: 'false',
+            message: 'radius is required'
+        });
+    }
+    else if(!req.query.lat) {
+        return res.status(400).send({
+            success: 'false',
+            message: 'latitude is required'
+        });
+    } else if(!req.query.long) {
+        return res.status(400).send({
+            success: 'false',
+            message: 'longitude is required'
+        });
+    }
+
+    let nearest = await getNearestPlaces(req.query.rad, req.query.lat, req.query.long) 
+    res.status(200).send({
+        success: 'true',
+        message: 'nearest places retrieved successfully',
+        total: nearest.length,
+        places: nearest
     })
 });
 

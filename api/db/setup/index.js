@@ -12,10 +12,10 @@ AWS.config.update({
 const ddb = new AWS.DynamoDB();
 
 // Configuration for a new instance of a GeoDataManager. Each GeoDataManager instance represents a table
-const config = new ddbGeo.GeoDataManagerConfiguration(ddb, 'stores');
+const config = new ddbGeo.GeoDataManagerConfiguration(ddb, 'places');
 
 // Instantiate the table manager
-const capitalsManager = new ddbGeo.GeoDataManager(config);
+const placesManager = new ddbGeo.GeoDataManager(config);
 
 // Use GeoTableUtil to help construct a CreateTableInput.
 const createTableInput = ddbGeo.GeoTableUtil.getCreateTableRequest(config);
@@ -32,20 +32,17 @@ ddb.createTable(createTableInput).promise()
     .then(function () { return ddb.waitFor('tableExists', { TableName: config.tableName }).promise() })
     // Load sample data in batches
     .then(function () {
-        console.log('Loading sample data from capitals.json');
-        const data = require('./capitals.json');
-        const putPointInputs = data.map(function (capital) {
+        console.log('Loading sample data from places.json');
+        const data = require('./places.json');
+        const putPointInputs = data.map(function (place) {
             return {
                 RangeKeyValue: { S: uuid.v4() }, // Use this to ensure uniqueness of the hash/range pairs.
                 GeoPoint: {
-                    latitude: capital.latitude,
-                    longitude: capital.longitude
+                    latitude: place.latitude,
+                    longitude: place.longitude
                 },
                 PutItemInput: {
-                    Item: {
-                        country: { S: capital.country },
-                        capital: { S: capital.capital }
-                    }
+                    Item: AWS.DynamoDB.Converter.marshall(place.data)
                 }
             }
         });
@@ -63,7 +60,7 @@ ddb.createTable(createTableInput).promise()
                 thisBatch.push(itemToAdd);
             }
             console.log('Writing batch ' + (currentBatch++) + '/' + Math.ceil(data.length / BATCH_SIZE));
-            return capitalsManager.batchWritePoints(thisBatch).promise()
+            return placesManager.batchWritePoints(thisBatch).promise()
                 .then(function () {
                     return new Promise(function (resolve) {
                         setInterval(resolve,WAIT_BETWEEN_BATCHES_MS);
@@ -81,7 +78,7 @@ ddb.createTable(createTableInput).promise()
     // Perform a radius query
     .then(function () {
         console.log('Querying by radius, looking 100km from Cambridge, UK.');
-        return capitalsManager.queryRadius({
+        return placesManager.queryRadius({
             RadiusInMeter: 100000,
             CenterPoint: {
                 latitude: 52.225730,
