@@ -1,0 +1,101 @@
+[{
+    "latitude": -23.159774,
+    "longitude": -46.916816,
+    "data": {
+      "name": "Farmácia popular",
+      "votes": [{
+          "ip": "127.0.0.1",
+          "type": 0,
+          "timestamp": 1584919222
+        },
+        {
+          "ip": "127.0.0.1",
+          "type": 1,
+          "timestamp": 1584919222
+        },
+        {
+          "ip": "127.0.0.1",
+          "type": 1,
+          "timestamp": 1584919222
+        },
+        {
+          "ip": "127.0.0.1",
+          "type": 1,
+          "timestamp": 1584919222
+        },
+        {
+          "ip": "127.0.0.1",
+          "type": 1,
+          "timestamp": 1584919222
+        }
+      ]
+    }
+  },
+  {
+    "latitude": -23.158827,
+    "longitude": -46.910811,
+    "data": {
+      "name": "Farmácia popular 2",
+      "votes": [{
+          "ip": "127.0.0.1",
+          "type": 0,
+          "timestamp": 1584919222
+        },
+        {
+          "ip": "127.0.0.1",
+          "type": 1,
+          "timestamp": 1584919222
+        },
+        {
+          "ip": "127.0.0.1",
+          "type": 1,
+          "timestamp": 1584919222
+        },
+        {
+          "ip": "127.0.0.1",
+          "type": 1,
+          "timestamp": 1584919222
+        },
+        {
+          "ip": "127.0.0.1",
+          "type": 1,
+          "timestamp": 1584919222
+        }
+      ]
+    }
+  },
+  {
+    "latitude": -23.158727,
+    "longitude": -46.911811,
+    "data": {
+      "name": "Farmácia popular 3",
+      "votes": [{
+          "ip": "127.0.0.1",
+          "type": 0,
+          "timestamp": 1584919222
+        },
+        {
+          "ip": "127.0.0.1",
+          "type": 1,
+          "timestamp": 1584919222
+        },
+        {
+          "ip": "127.0.0.1",
+          "type": 1,
+          "timestamp": 1584919222
+        },
+        {
+          "ip": "127.0.0.1",
+          "type": 1,
+          "timestamp": 1584919222
+        },
+        {
+          "ip": "127.0.0.1",
+          "type": 1,
+          "timestamp": 1584919222
+        }
+      ]
+    }
+  }
+
+]
