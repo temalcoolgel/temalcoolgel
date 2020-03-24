@@ -5,6 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "create_db": "cd db/tables && node create_table_places.js && cd .. && cd ..",
+    "load_db": "cd db/tables && node load_data_places.js && cd .. && cd ..",
     "start": "node_modules/.bin/nodemon app.js --exec babel-node --"
   },
   "author": "",

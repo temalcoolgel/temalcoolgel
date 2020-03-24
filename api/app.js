@@ -1,10 +1,8 @@
 import bodyParser from 'body-parser';
 import express from 'express';
 import jwt from 'jsonwebtoken'; // used to create, sign, and verify tokens
-import db from './db/db';
 import { getNearestPlaces } from './model/places';
 import { getUserByEmail } from './model/user';
-import { verifyJWT } from './util/jwt_util';
 
 // Set up the express app
 const app = express();
@@ -48,16 +46,6 @@ app.get('/logout', function(req, res) {
 });
 
 
-// get all todos
-app.get('/api/v1/todos',verifyJWT, (_req, res) => {
-    res.status(200).send({
-        success: 'true',
-        message: 'todos retrieved successfully',
-        todos: db
-    })
-});
-
-
 app.get('/api/v1/places', async (req, res) => {
 
     if(!req.query.rad) {
@@ -87,30 +75,30 @@ app.get('/api/v1/places', async (req, res) => {
     })
 });
 
-app.post('/api/v1/todos',verifyJWT, (req, res) => {
-    if(!req.body.title) {
-        return res.status(400).send({
-            success: 'false',
-            message: 'title is required'
-        });
-    } else if(!req.body.description) {
-        return res.status(400).send({
-            success: 'false',
-            message: 'description is required'
-        });
-    }
-    const todo = {
-        id: db.length + 1,
-        title: req.body.title,
-        description: req.body.description
-    }
-    db.push(todo);
-    return res.status(201).send({
-        success: 'true',
-        message: 'todo added successfully',
-        todo
-    })
-});
+// app.post('/api/v1/todos',verifyJWT, (req, res) => {
+//     if(!req.body.title) {
+//         return res.status(400).send({
+//             success: 'false',
+//             message: 'title is required'
+//         });
+//     } else if(!req.body.description) {
+//         return res.status(400).send({
+//             success: 'false',
+//             message: 'description is required'
+//         });
+//     }
+//     const todo = {
+//         id: db.length + 1,
+//         title: req.body.title,
+//         description: req.body.description
+//     }
+//     db.push(todo);
+//     return res.status(201).send({
+//         success: 'true',
+//         message: 'todo added successfully',
+//         todo
+//     })
+// });
 
 const PORT = process.env.PORT || 5000;
 
