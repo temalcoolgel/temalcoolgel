@@ -1,0 +1,17 @@
+version: "3.2"
+services:
+  app-api:
+    build: ./api
+
+  app-ui:
+    build: ./ui
+
+  nginx:
+    image: nginx
+    ports:
+     - "80:80"
+    volumes:
+     - ./proxy/conf.d:/etc/nginx/conf.d
+    depends_on:
+     - app-ui
+     - app-api

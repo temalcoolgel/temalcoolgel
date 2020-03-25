@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node_modules/.bin/nodemon app.js --exec babel-node --"
+    "start": "node_modules/.bin/nodemon src/app.js --exec babel-node --",
+    "build": "node_modules/.bin/babel src -d dist"
   },
   "author": "",
   "license": "ISC",
