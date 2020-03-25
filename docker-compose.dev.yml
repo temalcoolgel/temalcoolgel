@@ -3,9 +3,10 @@ services:
   api:
     build:
       context: ./api
-      dockerfile: Docerfile.dev
+      dockerfile: Dockerfile.dev
     volumes:
       - ./api:/app
+      - /app/node_modules
     ports:
       - "5000:5000"
     environment:
@@ -15,9 +16,10 @@ services:
   frontend:
     build:
       context: ./ui
-      dockerfile: Docerfile.dev
+      dockerfile: Dockerfile.dev
     volumes:
       - ./ui:/app
+      - /app/node_modules
     ports:
       - "3000:3000"
     environment:

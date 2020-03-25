@@ -1,5 +1,5 @@
 #Stage 1: Build stage
-FROM node:8 as build-stage
+FROM node:lts-alpine as build-stage
 
 WORKDIR /app
 
@@ -11,7 +11,7 @@ COPY ./ /app/
 
 RUN npm run build 
 # Stage 2, 
-FROM node:8-alpine
+FROM node:lts-alpine
 
 COPY --from=build-stage /app/dist /dist
 COPY --from=build-stage /app/node_modules /node_modules
